@@ -1,202 +1,204 @@
+//git
 //数组的去重
 Array.prototype.myUnique = function(){
-    var obj = {};
-    for(var i = 0;i< this.length; i++){
-        var cur = this[i];
-        if(obj[cur]==cur){
-            this[i] = this[this.length-1];
-            this.length --;
-            i--;
-            continue;
-        }
-        obj[cur] = cur;
-    }
-    obj = null;
-    return this;
+var obj = {};
+for(var i = 0;i< this.length; i++){
+var cur = this[i];
+if(obj[cur]==cur){
+this[i] = this[this.length-1];
+this.length --;
+i--;
+continue;
+}
+obj[cur] = cur;
+}
+obj = null;
+return this;
 };
 //var ary = [1,1,2,3,5,21,1,2]
 //arr.myUnique().sort(function(a,b){retuen a-b});console.log(ary);
-/*
-//获取与设置transform的值，PS->只有通过这里设置的值才可以通过这里去获取
+/\*
+//获取与设置 transform 的值，PS->只有通过这里设置的值才可以通过这里去获取
 var cssTransform = (function(){
-    return {
-        init:function(element,attr,val){
-            if(!element.transform){
-                element.transform = {};
-            }
-            if(typeof val == 'undefined'){
-                if(!element.transform[attr]){
-                    switch(attr){
-                        case 'scale':
-                        case 'scaleX':
-                        case 'scaleY':
-                        case 'scaleZ':
-                            element.transform[attr] = 100;
-                        break;
-                        default:
-                            element.transform[attr] = 0;
-                    }
-                }
-                return element.transform[attr];
-            }else{
-                element.transform[attr] = val;
-                var transformVal = "";
-                for(var s in element.transform){
-                    switch(s){
-                        case 'scale':
-                        case 'scaleX':
-                        case 'scaleY':
-                        case 'scaleZ':
-                            transformVal +=" " + s + "("+(val/100)+")";
-                            break;
-                        case 'rotate':
-                        case 'rotateX':
-                        case 'rotateY':
-                        case 'rotateZ':
-                        case 'skewX':
-                        case 'skew':
-                            transformVal += " " + s  + "("+val+"deg)";
-                            break;
-                        default:
-                            transformVal += " " + s + "("+val+"px)";
-                    }
-                }
+return {
+init:function(element,attr,val){
+if(!element.transform){
+element.transform = {};
+}
+if(typeof val == 'undefined'){
+if(!element.transform[attr]){
+switch(attr){
+case 'scale':
+case 'scaleX':
+case 'scaleY':
+case 'scaleZ':
+element.transform[attr] = 100;
+break;
+default:
+element.transform[attr] = 0;
+}
+}
+return element.transform[attr];
+}else{
+element.transform[attr] = val;
+var transformVal = "";
+for(var s in element.transform){
+switch(s){
+case 'scale':
+case 'scaleX':
+case 'scaleY':
+case 'scaleZ':
+transformVal +=" " + s + "("+(val/100)+")";
+break;
+case 'rotate':
+case 'rotateX':
+case 'rotateY':
+case 'rotateZ':
+case 'skewX':
+case 'skew':
+transformVal += " " + s + "("+val+"deg)";
+break;
+default:
+transformVal += " " + s + "("+val+"px)";
+}
+}
 
                 element.style.WebkitTransform =element.style.transform= transformVal;
             }
         }
     }
+
 })();
 
 var div = document.querySelector("#div");
 cssTransform.init(div,'rotateX',50);
 cssTransform.init(div,'rotateY',20);
- */
-/*
-    获取数组中的最大值跟最小值
-*/
+_/
+/_
+获取数组中的最大值跟最小值
+\*/
 //方法一：先排序后取值
 var arr = [5,45,1,85,2,7,6,9,10];
 arr.sort(function(a,b){
-    return a-b;
+return a-b;
 });
 var max = arr[0],min = arr[arr.length-1];
-//方法二：使用了apple
+//方法二：使用了 apple
 var max = Math.max.apply(null,arr),
-    min = Math.min.apply(null,arr);
+min = Math.min.apply(null,arr);
 //方法三：
 var max = eval("Math.max("+ arr.toString() + " ) "),
-    min = eval("Math.min("+ arr.toString() + " ) ");
+min = eval("Math.min("+ arr.toString() + " ) ");
 //方法四：假设法
 var max = arr[0],min = arr[0];
 for(var i = 1;i<arr.length;i++){
-    var cur = arr[i];
-    cur > max ? max = cur : null;
-    cur < min ? min = cur : null;
+var cur = arr[i];
+cur > max ? max = cur : null;
+cur < min ? min = cur : null;
 }
 //获取平均数---方法一
 function Average(){
-    //将类数组转换成数组--->方法一
-    // var ary = [];
-    // for(var i = 0;i<arguments.length;i++){
-    //     ary[aty.length] = arguments[i];
-    // }
-    //将类数组转换成数组--->方法二
-    var ary = Array.prototype.slice(arguments);
-    //ary = [].slice.call(arguments);
-    arr.sort(function(a,b){
-        return a-b;
-    });
-    arr.shift();
-    arr.pop();
-    return (eval(arr.join("+") / arr.length).toFixed(2))
+//将类数组转换成数组--->方法一
+// var ary = [];
+// for(var i = 0;i<arguments.length;i++){
+// ary[aty.length] = arguments[i];
+// }
+//将类数组转换成数组--->方法二
+var ary = Array.prototype.slice(arguments);
+//ary = [].slice.call(arguments);
+arr.sort(function(a,b){
+return a-b;
+});
+arr.shift();
+arr.pop();
+return (eval(arr.join("+") / arr.length).toFixed(2))
 };
 var res = Average(5,45,1,85,2,7,6,9,10);
 //获取平均数---方法二
 // function Average(){
-//     Array.prototype.sort.call(arguments,function(a,b){
-//         return a - b;
-//     });
-//     [].shift.call(arguments);
-//     [].pop.call(arguments);
-//     return (eval([].join.call(arguments,"+")) / arguments.length).toFixed(2);
+// Array.prototype.sort.call(arguments,function(a,b){
+// return a - b;
+// });
+// [].shift.call(arguments);
+// [].pop.call(arguments);
+// return (eval([].join.call(arguments,"+")) / arguments.length).toFixed(2);
 // }
-var  utils = (function(){
-    var flag = "getComputedStyle" in window;
-    return {
-        //把类数组转化成数组-->var ary(自己起的名字) = utils.listToArray(类数组的名称)
-        listToArray : function(likeAry){
-            if(flag){
-                return Array.prototype.slice.call(likeAry);
-            }
-            var ary = [];
-            for(var i = 0 ; i< likeAry.length; i++){
-                ary[ary.length] = likeAry[i];
-            }
-            return ary;
-        },
-        //把JSON格式的字符串转化为JSON格式的对象
-        formatJSOM:function(jsonStr){
-            return "JSON" in window ? JSON.parse(jsonStr) : eval("("+jsonStr+")");
-            // var val = null;
-            // try{
-            //     val = JSON.parse(str);
-            // }catch(ev){
-            //     val = eval("("+str+")");
-            // }
-            // return val;
-        },
-        //判断数组中出现次数最多的数
-        findMost:function(arr){
-            var obj = {},MaxNum = 0,maxElem = null;
-            for(var i = 0 ; i < arr.length; i++){
-                var cur = arr[i];
-                obj[cur] === undefined ? obj[cur] = 1 : (obj[cur]++);
-                if(obj[cur] > MaxNum){
-                    maxElem = cur;
-                    MaxNum = obj[cur]
-                }
-            }
-            return '出现次数最多的元素：'+maxElem+',出现的次数：'+MaxNum;
-        },
-        //编写 一个有关浏览器盒子模型方法
-        // win('clientHeight')//获取
-        // win('scrollTop',0)//设置
-        win:function(attr,value){
-            //如果只传递attr没有value是获取，如果两个都传递了就是设置值
-            if(typeof value === "undefined"){
-                //获取值
-                return document.documentElement[attr] || document.body[attr];
-            }
-            document.documentElement[attr] = value;
-            document.body[attr] = value;
-        },
-        //获取当前元素经过浏览器计算过的样式中attr对应的值->curEle当前要操作的元素对象->attr我们要获取的属性名称
-        //conmsole.log(getCss(box,'height'))
-        //放在reg = /^(-?\d(\.\d)?)(px|pt|rem|rm)?&/i;的前面
-        // try{
-            //     val = window.getComputedStyle(curEle,null)[attr]
-            // }catch(e){
-            //     val = curEle.currentStyle[attr];
-            // }
-        getCss:function(curEle,attr){
-            var val = null,reg = null;
-            if(flag){
-                val = window.getComputedStyle(curEle,null)[attr];
-            }else{
-                if(attr==='opacity'){
-                    val = curEle.currentStyle["filter"];
-                    reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
-                    val = reg.test(val)?reg.exec(val)[1]/100:1;
-                }else{
-                    val = curEle.currentStyle[attr];
-                }
-            }
-            reg = /^(-?\d(\.\d)?)(px|pt|rem|rm)?&/i;
-            return reg.test(val) ? parseFloat(val) : val;
-        },
-        //设置css--->utils.setCss(box,'background',"red");
-        setCss:function(curEle,attr,value){
+var utils = (function(){
+var flag = "getComputedStyle" in window;
+return {
+//把类数组转化成数组-->var ary(自己起的名字) = utils.listToArray(类数组的名称)
+listToArray : function(likeAry){
+if(flag){
+return Array.prototype.slice.call(likeAry);
+}
+var ary = [];
+for(var i = 0 ; i< likeAry.length; i++){
+ary[ary.length] = likeAry[i];
+}
+return ary;
+},
+//把 JSON 格式的字符串转化为 JSON 格式的对象
+formatJSOM:function(jsonStr){
+return "JSON" in window ? JSON.parse(jsonStr) : eval("("+jsonStr+")");
+// var val = null;
+// try{
+// val = JSON.parse(str);
+// }catch(ev){
+// val = eval("("+str+")");
+// }
+// return val;
+},
+//判断数组中出现次数最多的数
+findMost:function(arr){
+var obj = {},MaxNum = 0,maxElem = null;
+for(var i = 0 ; i < arr.length; i++){
+var cur = arr[i];
+obj[cur] === undefined ? obj[cur] = 1 : (obj[cur]++);
+if(obj[cur] > MaxNum){
+maxElem = cur;
+MaxNum = obj[cur]
+}
+}
+return '出现次数最多的元素：'+maxElem+',出现的次数：'+MaxNum;
+},
+//编写 一个有关浏览器盒子模型方法
+// win('clientHeight')//获取
+// win('scrollTop',0)//设置
+win:function(attr,value){
+//如果只传递 attr 没有 value 是获取，如果两个都传递了就是设置值
+if(typeof value === "undefined"){
+//获取值
+return document.documentElement[attr] || document.body[attr];
+}
+document.documentElement[attr] = value;
+document.body[attr] = value;
+},
+//获取当前元素经过浏览器计算过的样式中 attr 对应的值->curEle 当前要操作的元素对象->attr 我们要获取的属性名称
+//conmsole.log(getCss(box,'height'))
+//放在 reg = /^(-?\d(\.\d)?)(px|pt|rem|rm)?&/i;的前面
+// try{
+// val = window.getComputedStyle(curEle,null)[attr]
+// }catch(e){
+// val = curEle.currentStyle[attr];
+// }
+getCss:function(curEle,attr){
+var val = null,reg = null;
+if(flag){
+val = window.getComputedStyle(curEle,null)[attr];
+}else{
+if(attr==='opacity'){
+val = curEle.currentStyle["filter"];
+reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)\$/i;
+val = reg.test(val)?reg.exec(val)[1]/100:1;
+}else{
+val = curEle.currentStyle[attr];
+}
+}
+reg = /^(-?\d(\.\d)?)(px|pt|rem|rm)?&/i;
+return reg.test(val) ? parseFloat(val) : val;
+},
+//设置 css--->utils.setCss(box,'background',"red");
+setCss:function(curEle,attr,value){
 
             if(attr==="float"){
                 curEle["style"]["cssFloat"] = value;
@@ -502,29 +504,30 @@ var  utils = (function(){
             }
         }
     }
+
 })();
 
 //var str = "2015-6-10 14:53:00";
 //console.log(str.myFormatTime("{0}年{1}月{2}日"))
 String.prototype.myFormatTime = function(){
-    var reg = /^(\d{4})[-/.:](\d{1,2})[-/.:](\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})$/g
-    var ary = [];
-    this.replace(reg,function(){
-        ary = ([].slice.call(arguments)).slice(1, 7);
-    });
-    var format = arguments[0] || "{0}年{1}月{2}日 {3}:{4}:{5}";
-    return format.replace(/{(\d+)}/g,function(){
-        val = ary[arguments[1]];
-        return val.length === 1 ? "0" + val : val;
-    });
+var reg = /^(\d{4})[-/.:](\d{1,2})[-/.:](\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})\$/g
+var ary = [];
+this.replace(reg,function(){
+ary = ([].slice.call(arguments)).slice(1, 7);
+});
+var format = arguments[0] || "{0}年{1}月{2}日 {3}:{4}:{5}";
+return format.replace(/{(\d+)}/g,function(){
+val = ary[arguments[1]];
+return val.length === 1 ? "0" + val : val;
+});
 };
 //二维数组根据名字或者年龄去排序
-/*
-    var ary = [
-        {name:'阿里',age:18},
-        {name:'吃饭',age:52},
-        {name:'鄙视',age:25}
-    ];
+/\*
+var ary = [
+{name:'阿里',age:18},
+{name:'吃饭',age:52},
+{name:'鄙视',age:25}
+];
 
     这是根据年龄排序
     ary.sort(function(a,b){
@@ -535,104 +538,102 @@ String.prototype.myFormatTime = function(){
         return a.name.localeCompare(b.name);
     });
     console.log(ary);
-*/
-//forEach-->它的作用是使用定义的函数处理数组中的每个元素,实际上forEach方法接收第二个参数，如果传入这个参数，则回调函数中的this就指向这个参数值，如果没有传入，则this指向全局变量window
+
+\*/
+//forEach-->它的作用是使用定义的函数处理数组中的每个元素,实际上 forEach 方法接收第二个参数，如果传入这个参数，则回调函数中的 this 就指向这个参数值，如果没有传入，则 this 指向全局变量 window
 Array.prototype.forEach = Array.prototype.forEach || function(fn,context){
-    for(var i = 0;i<this.length;i++){
-        if(typeof fn === "function" && Object.prototype.hasOwnProperty.call(this,k)){
-            fn.call(context,this[i],i,this);
-        }
-    }
+for(var i = 0;i<this.length;i++){
+if(typeof fn === "function" && Object.prototype.hasOwnProperty.call(this,k)){
+fn.call(context,this[i],i,this);
+}
+}
 };
-//map方法会将数组中每个元素做处理得到新的元素，然后返回这些新的元素组成的数组。其回调函数中接收的参数和forEach一样
+//map 方法会将数组中每个元素做处理得到新的元素，然后返回这些新的元素组成的数组。其回调函数中接收的参数和 forEach 一样
 Array.prototype.map = Array.prototype.map || function(fn,context){
-    var arr = [];
-    if(typeof fn === "function"){
-        for(var k = 0;k<this.length;k++){
-            arr.push(fn.call(context,this[k],k,this));
-        }
-    }
-    return arr;
+var arr = [];
+if(typeof fn === "function"){
+for(var k = 0;k<this.length;k++){
+arr.push(fn.call(context,this[k],k,this));
+}
+}
+return arr;
 };
-//filter顾名思义，过滤数组中满足条件的数值，得到一个新的数组。在filter的回调函数中需要返回true或者false，true代表满足条件，通过筛选；false代表不满足条件，不通过筛选
+//filter 顾名思义，过滤数组中满足条件的数值，得到一个新的数组。在 filter 的回调函数中需要返回 true 或者 false，true 代表满足条件，通过筛选；false 代表不满足条件，不通过筛选
 Array.prototype.filter = Array.prototype.filter || function(fn,context){
-    var arr = [];
-    if(typeof fn === "function"){
-        for(var j = 0;j<this.length;j++){
-           fn.call(context, thi[j], j, this) && arr.push(this[j])
-        }
-    }
-    return arr;
+var arr = [];
+if(typeof fn === "function"){
+for(var j = 0;j<this.length;j++){
+fn.call(context, thi[j], j, this) && arr.push(this[j])
+}
+}
+return arr;
 };
-//中国标准真实姓名2-4位汉字
+//中国标准真实姓名 2-4 位汉字
 //var reg = /^[\u4e00-\u9fa5]{2,4}$/;
 //手机号码的认证
-//var reg = /^1[3|5|8][0-9]\d{4,8}$/;  1 5 21827  2362
+//var reg = /^1[3|5|8][0-9]\d{4,8}$/; 1 5 21827 2362
 
 //利用正则修改字符串的数字改成中文大写
 // var arr = ["零","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
 // str = str.replace(/\d/g,function(){
-//     return  arr[arguments[0]];
+// return arr[arguments[0]];
 // });
-/*
+/\*
 //获取字符串出现次数最多的次数
-var str  = "kjkdjghkjdfvbnmbeuih";
+var str = "kjkdjghkjdfvbnmbeuih";
 //获取每一个字符出现的字数
 var obj = {};
 str.replace(/[a-z]/gi,function(){
-    var val = arguments[0];
-    obj[val] >= 1 ? obj[val] += 1 : obj[val] = 1;
+var val = arguments[0];
+obj[val] >= 1 ? obj[val] += 1 : obj[val] = 1;
 });
 //获取最多出现的次数
 var maxNum = 0;
 for(var key in obj){
-    obj[key] > maxNum ? maxNum = obj[key] : null;
+obj[key] > maxNum ? maxNum = obj[key] : null;
 }
-//把所有符合出现maxNum次数的都获取到
+//把所有符合出现 maxNum 次数的都获取到
 var ary = [];
 for(var key in obj){
-    obj[key] === maxNum ? ary.push(key)　: null;
+obj[key] === maxNum ? ary.push(key)　: null;
 }
 console.log('整个字符串中出现次数最多的字符是：'+ary.toString() + "出现了"+maxNum + '次')
 
- */
-/*
-    //将时间转化成自己想要的格式
-var str  = "2017-7-4 16:33:0",
-regs = /^(\d{4})[-/](\d{1,2})[-/](\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})$/g,
+_/
+/_
+//将时间转化成自己想要的格式
+var str = "2017-7-4 16:33:0",
+regs = /^(\d{4})[-/](\d{1,2})[-/](\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})\$/g,
 ary = [];
 
 str.replace(regs,function(){
-    ary = [].slice.call(arguments);
-    ary = ary.slice(1, 7);
+ary = [].slice.call(arguments);
+ary = ary.slice(1, 7);
 });
 var resStr = "{0}年{1}月{2}日 {3}时{4}分{5}秒",reg = /{(\d+)}/g;
 resStr = resStr.replace(reg,function(){
-    var nul = arguments[1],val = ary[nul];
-    val.length === 1 ? val = "0" + val : void 0;
-    return val;
+var nul = arguments[1],val = ary[nul];
+val.length === 1 ? val = "0" + val : void 0;
+return val;
 });
 console.log(resStr);
 
-*/
-
+\*/
 
 //判断数据类型
 //var ary = [];console.log(Object.prototype.toString.call(ary)==="[object Array]");
 
-
-
 // 判断随机数
 function getRandom(n,m) {
-    n = Number(n);
-    m = Number(m);
-    if(isNaN(n) || isNaN(m)){
-        return Math.random();
-    }
-    if(n>m){
-        var temp = n;
-        n = m;
-        m = temp;
-    }
-    return Math.round(Math.random()*(m - n) + n);
+n = Number(n);
+m = Number(m);
+if(isNaN(n) || isNaN(m)){
+return Math.random();
+}
+if(n>m){
+var temp = n;
+n = m;
+m = temp;
+}
+return Math.round(Math.random()\*(m - n) + n);
 }
